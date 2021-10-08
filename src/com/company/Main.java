@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -19,8 +20,24 @@ public class Main {
         List<Integer> b = Arrays.asList(1,2,3);
         System.out.println(intersectionFuntional.apply(a,b));
 
-    }
+        //Funciones puras
+        System.out.println(function.apply(Arrays.asList(2,4,5)));
 
+        //Funciones compuestas f(g(x))
+        Function<Integer, Integer> composeA = add.compose(times);
+        Function<Integer, Integer> composeB = times.compose(add);
+        System.out.println(composeA.apply(4));//(4*2) + 3 = 11
+        System.out.println(composeB.apply(4));//(4+3) * 2 = 14
+    }
+    /**
+     * Funciones puras
+     * Se multiplica cada elemento del Array por 2 y se hace la suma de la lista*/
+    public static Function<List<Integer>, Integer> function = a -> a.stream().map(e -> e * 2).reduce(0,Integer::sum);
+
+    /**
+     * Una funcion que adiciona tres unidades*/
+    public static Function<Integer, Integer> add = a -> a + 3;
+    public static Function<Integer, Integer> times = a -> a * 2;
     /**
      * Programación imperativa
      * En este ejemplo se comparar los elementos de listas y retorna una lista ordenada
