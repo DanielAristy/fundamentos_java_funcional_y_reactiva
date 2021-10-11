@@ -28,7 +28,28 @@ public class Main {
         Function<Integer, Integer> composeB = times.compose(add);
         System.out.println(composeA.apply(4));//(4*2) + 3 = 11
         System.out.println(composeB.apply(4));//(4+3) * 2 = 14
+
+        //Funciones encadenadas
+        Function<Integer, Integer> curried = currier.apply(4);
+        System.out.println("Curry : "+ curried.apply(3));
+
+        //Objetos inmutables con manejo de listas
+        List<Integer> list = Arrays.asList(2,3,4);
+
+        List<Integer> list2 = list.stream().filter(e -> e % 2 == 0)
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toList(),Collections::unmodifiableList
+                ));
+
+        list2.add(2);
+        System.out.println(list2);
     }
+
+    /**Manejando funciones anidadas por composición*/
+    public static BiFunction<Integer, Integer, Integer> adder = Integer::sum;
+    public static Function<Integer, Function<Integer, Integer>> currier = a -> b -> adder.apply(a,b);
+
+
     /**
      * Funciones puras
      * Se multiplica cada elemento del Array por 2 y se hace la suma de la lista*/
