@@ -1,4 +1,4 @@
-package com.company;
+package com.company.funciones_puras;
 
 import java.util.ArrayList;
 import java.util.Arrays;
